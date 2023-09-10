@@ -28,8 +28,8 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   float voltValue = analogRead(A0);
-  float gearVoltage = voltValue * (5.0/1024)*((R1 + R2)/R2); 
-  //The value is 5.0 since the Arduino can only handle a max of 5VDC. 
+  float gearVoltage = voltValue * (8.0/1024)*((R1 + R2)/R2); 
+  //The value is 8.0 since this is our input voltage. 
   //Our out voltage is around 3.3V after resistance division
   Serial.print("Voltage =");
   Serial.println(gearVoltage);
