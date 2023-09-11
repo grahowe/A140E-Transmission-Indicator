@@ -35,7 +35,7 @@ void loop(){
   Serial.println(gearVoltage);
   delay(500);
 
-  if(gearVoltage < 1.4999){ //1st Gear position
+  if(gearVoltage <= 1.5){ //1st Gear position
     digitalWrite(firstGear, HIGH);
     digitalWrite(secondGear, LOW);
     digitalWrite(thirdGear, LOW);
