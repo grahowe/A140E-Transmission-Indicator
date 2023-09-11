@@ -5,30 +5,82 @@
 //You MUST have a voltage divider on A0 or else this will blow up the Arduino board. I am not responsible. Arduinos handle up to 5V, and some handle 3.3V.
 //I have engineered this to handle a max of 3.3V. Tt's output signal has a maximum of 8VDC.
 
+//Define voltage divider resistor values
 float R1 = 47000.0;
 float R2 = 33000.0;
+//This should convert 8VDC to 3.3VDC - perfect for any Arduino board
 
-int firstGear = 2;   // Blue LED, pin 1
-int secondGear = 3;  // Green LED, pin 2
-int thirdGear = 4;   // Yellow LED, pin 3
-int fourthGear = 5;  // Red LED, pin 4, Overdrive
+//Pin definitions for transmission
+int firstGear = 2; //Blue LED, pin 1
+int secondGear = 3; //Green LED, pin 2
+int thirdGear = 4; //Yellow LED, pin 3
+int fourthGear = 5; //Red LED, pin 4, Overdrive
 
 void setup() {
-  Serial.begin(9600);
-  
+  Serial.begin(9600); //When connected to a terminal output, this gives the voltage. Refer to the TurboNinjas manual p. AX1-47
+  // put your setup code here, to run once:
   pinMode(firstGear, OUTPUT);
   pinMode(secondGear, OUTPUT);
   pinMode(thirdGear, OUTPUT);
   pinMode(fourthGear, OUTPUT);
 }
 
-void loop() {
+void loop(){
+  //Transmission function
   float voltValue = analogRead(A0);
-  float gearVoltage = voltValue * (8.0 / 1023) * ((R1 + R2) / R2);
-  
+  float gearVoltage = voltValue * (8.0/1024)*((R1 + R2)/R2); 
+  //The value is 8.0 since this is the value of the transmission. 
+  //Our out voltage is around 3.3V maximum after resistance division
   Serial.print("Voltage = ");
   Serial.println(gearVoltage);
-  Serial.println("------------------");
+  delay(500);
 
-  delay(1000);
+  if(gearVoltage < 1.4999){ //1st Gear position
+    digitalWrite(firstGear, HIGH);
+    digitalWrite(secondGear, LOW);
+    digitalWrite(thirdGear, LOW);
+    digitalWrite(fourthGear, LOW);
+  }
+
+  if(gearVoltage > 1.5 && gearVoltage < 2.6){ //2nd Gear shifting position
+    digitalWrite(firstGear, HIGH);
+    digitalWrite(secondGear, HIGH);
+    digitalWrite(thirdGear, LOW);
+    digitalWrite(fourthGear, LOW);
+  }
+
+  if(gearVoltage > 2.5 && gearVoltage < 3.6){ //2nd Gear lock-up
+    digitalWrite(firstGear, LOW);
+    digitalWrite(secondGear, HIGH);
+    digitalWrite(thirdGear, LOW);
+    digitalWrite(fourthGear, LOW);
+  }
+
+  if(gearVoltage > 3.5 && gearVoltage < 4.6){ //3rd gear shifting position
+    digitalWrite(firstGear, LOW);
+    digitalWrite(secondGear, HIGH);
+    digitalWrite(thirdGear, HIGH);
+    digitalWrite(fourthGear, LOW);
+  }
+
+  if(gearVoltage > 4.5 && gearVoltage < 5.6){ //3rd gear lock-up
+    digitalWrite(firstGear, LOW);
+    digitalWrite(secondGear, LOW);
+    digitalWrite(thirdGear, HIGH);
+    digitalWrite(fourthGear, LOW);
+  }
+
+  if(gearVoltage > 5.5 && gearVoltage < 6.6){ //OD shifting position
+    digitalWrite(firstGear, LOW);
+    digitalWrite(secondGear, LOW);
+    digitalWrite(thirdGear, HIGH);
+    digitalWrite(fourthGear, HIGH);
+  }
+
+  if(gearVoltage > 6.5){ //OD lock-up
+    digitalWrite(firstGear, LOW);
+    digitalWrite(secondGear, LOW);
+    digitalWrite(thirdGear, LOW);
+    digitalWrite(fourthGear, HIGH);
+  }
 }
