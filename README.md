@@ -3,7 +3,6 @@ This code is designed as an automatic shift indicator for the A140E Aisin transm
 
 Cars that will work with this application include:
 *1992-1996 Toyota Camry
-*1986-1989 Celica GT/GTS (with ECT-S)
 
 Data is read via pin A0 from a voltage divider. 
 
