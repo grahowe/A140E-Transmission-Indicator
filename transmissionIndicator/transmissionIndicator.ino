@@ -28,8 +28,8 @@ void setup() {
 void loop(){
   //Transmission function
   float voltValue = analogRead(A0);
-  float gearVoltage = voltValue * (8.0/1023)*((R1 + R2)/R2); 
-  //The value is 8.0 since this is the value of the transmission. 
+  float gearVoltage = voltValue * (5.0/1023)*((R1 + R2)/R2); 
+  //The value is 5.0 since this is the maximum value we can handle. 
   //Our out voltage is around 3.3V maximum after resistance division
   Serial.print("Voltage = ");
   Serial.println(gearVoltage);
