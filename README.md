@@ -10,4 +10,4 @@ The transmission shift signal comes from the Tt terminal on the Toyota OBDI DLC.
 
 More information can be found in the code. The attached photo is taken from the Toyota manual and describes the exact voltages at which shifting and lock-ups occur.
 
-In the future, I plan on adding a beeper so the circuit beeps when it shifts gears. We'll see what happens soon!
+9-16 EDIT: Gear position is also displayed via an OLED screen. Just connect 3.3 or 5V to Vcc, GND to GND, A4 to SDA, and A5 to SCL. You're more than welcome to modify the font styles, choice of OLED, etc. This includes the U8g2 library as the main driver.
