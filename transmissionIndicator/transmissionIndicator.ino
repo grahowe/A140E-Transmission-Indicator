@@ -33,12 +33,9 @@ void setup() {
   pinMode(fourthGear, OUTPUT);
   oled.setFont(u8g2_font_freedoomr10_mu);
   oled.drawStr(40, 14, "TOYOTA");
-  oled.sendBuffer();
   oled.drawStr(44, 28, "A140E");
-  oled.sendBuffer();
-  oled.drawStr(28, 42, "TRANSAXLE");
-  oled.sendBuffer();
-  oled.drawStr(36, 60, "(C)2023");
+  oled.drawStr(28, 42, "AUTOMATIC");
+  oled.drawStr(16, 60, "TRANSMISSION");
   oled.sendBuffer();
   delay(3000);
   oled.clearBuffer();
@@ -50,10 +47,6 @@ void setup() {
 }
 
 void loop(){
-  driveTrainComputer();
-}
-
-void driveTrainComputer(){
   oled.clearBuffer();
   oled.setFont(u8g2_font_freedoomr10_mu);
   oled.drawStr(14, 64, "GEAR POSITION");
