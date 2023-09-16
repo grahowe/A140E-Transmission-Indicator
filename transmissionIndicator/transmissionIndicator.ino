@@ -44,7 +44,7 @@ void setup() {
   oled.clearBuffer();
   oled.drawStr(14, 14, "TRANSMISSION");
   oled.drawStr(20, 30, "DIAGNOSTICS");
-  oled.drawStr(12, 52, "INITIALIZING...");
+  oled.drawStr(12,60, "INITIALIZING...");
   oled.sendBuffer();
   delay(3000);
 }
@@ -55,8 +55,9 @@ void loop(){
 
 void driveTrainComputer(){
   oled.clearBuffer();
+  oled.setFont(u8g2_font_freedoomr10_mu);
+  oled.drawStr(14, 64, "GEAR POSITION");
   oled.setFont(u8g2_font_timB24_tf);
-  oled.drawStr(20, 64, "GEAR");
   //Transmission function
   float voltValue = analogRead(A0);
   float gearVoltage = voltValue * (5.0/1023)*((R1 + R2)/R2); 
