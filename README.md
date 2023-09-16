@@ -1,8 +1,7 @@
 # A140E-Transmission-Indicator
 This code is designed as an automatic shift indicator for the A140E Aisin transmission. Please note that this will not work on all cars - it is Toyota OBDI-specific.
 
-Cars that will work with this application include:
-*1992-1996 Toyota Camry
+The OBDI port or ECU must have a Tt pin on it in order for this to work
 
 Data is read via pin A0 from a voltage divider. 
 
