@@ -60,11 +60,14 @@ void driveTrainComputer(){
   oled.setFont(u8g2_font_timB24_tf);
   //Transmission function
   float voltValue = analogRead(A0);
-  float gearVoltage = voltValue * (5.0/1023)*((R1 + R2)/R2); 
+  float gearVoltage = voltValue * (5.0/1023.0)*((R1 + R2)/R2); 
   //The value is 5.0 since this is the maximum value we can handle. 
   //Our out voltage is around 3.3V maximum after resistance division
   Serial.print("Voltage = ");
   Serial.println(gearVoltage);
+  Serial.print("A0 analog value (0-1023) = ");
+  Serial.println(voltValue);
+  Serial.println();
 
   if(gearVoltage <= 1.5){ //1st Gear position
     digitalWrite(firstGear, HIGH);
