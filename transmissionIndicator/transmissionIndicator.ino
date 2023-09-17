@@ -48,9 +48,7 @@ void setup() {
 
 void loop(){
   oled.clearBuffer();
-  oled.setFont(u8g2_font_freedoomr10_mu);
-  oled.drawStr(14, 64, "GEAR POSITION");
-  oled.setFont(u8g2_font_timB24_tf);
+  oled.setFont(u8g2_font_freedoomr25_tn);
   //Transmission function
   float voltValue = analogRead(A0);
   float gearVoltage = voltValue * (5.0/1023.0)*((R1 + R2)/R2); 
@@ -68,8 +66,9 @@ void loop(){
     digitalWrite(thirdGear, LOW);
     digitalWrite(fourthGear, LOW);
     oled.drawStr(60, 32, "1");
+    oled.setFont(u8g2_font_freedoomr10_mu);
+    oled.drawStr(24, 64, "FIRST GEAR");
     oled.sendBuffer();
-    delay(25);
   }
 
   if(gearVoltage > 1.5 && gearVoltage < 2.6){ //2nd Gear shifting position
@@ -78,8 +77,9 @@ void loop(){
     digitalWrite(thirdGear, LOW);
     digitalWrite(fourthGear, LOW);
     oled.drawStr(20, 32, "SHIFT");
+    oled.setFont(u8g2_font_freedoomr10_mu);
+    oled.drawStr(20, 64, "SHIFTING");
     oled.sendBuffer();
-    delay(25);
   }
 
   if(gearVoltage > 2.5 && gearVoltage < 3.6){ //2nd Gear lock-up
@@ -88,8 +88,9 @@ void loop(){
     digitalWrite(thirdGear, LOW);
     digitalWrite(fourthGear, LOW);
     oled.drawStr(60, 32, "2");
+    oled.setFont(u8g2_font_freedoomr10_mu);
+    oled.drawStr(20, 64, "SECOND GEAR");
     oled.sendBuffer();
-    delay(25);
   }
 
   if(gearVoltage > 3.5 && gearVoltage < 4.6){ //3rd gear shifting position
@@ -98,8 +99,9 @@ void loop(){
     digitalWrite(thirdGear, HIGH);
     digitalWrite(fourthGear, LOW);
     oled.drawStr(20, 32, "SHIFT");
+    oled.setFont(u8g2_font_freedoomr10_mu);
+    oled.drawStr(24, 64, "SHIFTING");
     oled.sendBuffer();
-    delay(25);
   }
 
   if(gearVoltage > 4.5 && gearVoltage < 5.6){ //3rd gear lock-up
@@ -108,8 +110,9 @@ void loop(){
     digitalWrite(thirdGear, HIGH);
     digitalWrite(fourthGear, LOW);
     oled.drawStr(60, 32, "3");
+    oled.setFont(u8g2_font_freedoomr10_mu);
+    oled.drawStr(24, 64, "THIRD GEAR");
     oled.sendBuffer();
-    delay(25);
   }
 
   if(gearVoltage > 5.5 && gearVoltage < 6.6){ //OD shifting position
@@ -118,8 +121,9 @@ void loop(){
     digitalWrite(thirdGear, HIGH);
     digitalWrite(fourthGear, HIGH);
     oled.drawStr(20, 32, "SHIFT");
+    oled.setFont(u8g2_font_freedoomr10_mu);
+    oled.drawStr(24, 64, "SHIFTING");
     oled.sendBuffer();
-    delay(25);
   }
 
   if(gearVoltage > 6.5){ //OD lock-up
@@ -127,8 +131,10 @@ void loop(){
     digitalWrite(secondGear, LOW);
     digitalWrite(thirdGear, LOW);
     digitalWrite(fourthGear, HIGH);
-    oled.drawStr(60, 32, "O/D");
+    oled.drawStr(60, 32, "4");
+    oled.setFont(u8g2_font_freedoomr10_mu);
+    oled.drawStr(24, 64, "OVERDRIVE");
     oled.sendBuffer();
-    delay(25);
   }
 }
+
