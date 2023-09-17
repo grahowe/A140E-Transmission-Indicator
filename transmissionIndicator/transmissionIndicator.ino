@@ -8,7 +8,7 @@
 #include <U8g2lib.h>
 #include <Wire.h>
 
-typedef U8G2_SSD1306_128X64_NONAME_F_SW_I2C oledScr; // This renames U8G2... to SeeedDisplay (Thanks C++!)
+typedef U8G2_SSD1306_128X64_NONAME_F_SW_I2C oledScr;
 
 oledScr oled(U8G2_R0, SCL, SDA, U8X8_PIN_NONE);
 //Define voltage divider resistor values
@@ -21,6 +21,7 @@ int firstGear = 2; //Blue LED, pin 1
 int secondGear = 3; //Green LED, pin 2
 int thirdGear = 4; //Yellow LED, pin 3
 int fourthGear = 5; //Red LED, pin 4, Overdrive
+
 
 void setup() {
   Serial.begin(9600); //When connected to a terminal output, this gives the voltage. Refer to the TurboNinjas manual p. AX1-47
@@ -39,7 +40,7 @@ void setup() {
   oled.sendBuffer();
   delay(3000);
   oled.clearBuffer();
-  oled.drawStr(14, 14, "TRANSMISSION");
+  oled.drawStr(14, 14, "5S-FE ENGINE");
   oled.drawStr(20, 30, "DIAGNOSTICS");
   oled.drawStr(12,60, "INITIALIZING...");
   oled.sendBuffer();
