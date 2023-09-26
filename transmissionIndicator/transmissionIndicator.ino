@@ -3,7 +3,7 @@
 //CAUTION: This device works only on cars with the Aisin A140E 4-speed automatic transmission. This includes the 1992-1996 Camry. Toyota OBDI compliant.
 //To connect, find the Tt pin on the Toyota DLC, either under the hood or under the dash. Place A0 in this pin socket and ground to E1.
 //You MUST have a voltage divider on A0 or else this will blow up the Arduino board. I am not responsible. Arduinos handle up to 5V, and some handle 3.3V.
-//I have engineered this to handle a max of 3.3V. Tt's output signal has a maximum of 8VDC.
+//I have engineered this to handle a max of 3.3V. Tt's output signal has a maximum of about 7.6VDC.
 
 #include <U8g2lib.h>
 #include <Wire.h>
@@ -14,7 +14,7 @@ oledScr oled(U8G2_R0, SCL, SDA, U8X8_PIN_NONE);
 //Define voltage divider resistor values
 float R1 = 47000.0;
 float R2 = 33000.0;
-//This should convert 8VDC to 3.3VDC - perfect for any Arduino board
+//This should convert 7.6VDC to close to 3.3VDC - perfect for any Arduino board
 
 //Pin definitions for transmission
 int firstGear = 2; //Blue LED, pin 1
@@ -49,10 +49,11 @@ void setup() {
 
 void loop(){
   oled.clearBuffer();
-  oled.setFont(u8g2_font_freedoomr25_tn);
+  oled.setFont(u8g2_font_commodore64_tr);
   //Transmission function
   float voltValue = analogRead(A0);
-  float gearVoltage = voltValue * (5.0/1023.0)*((R1 + R2)/R2); 
+  float gearVoltage = voltValue * (5.0/1023.0) * ((R1 + R2)/R2); 
+  String myString = String(gearVoltage);
   //The value is 5.0 since this is the maximum value we can handle. 
   //Our out voltage is around 3.3V maximum after resistance division
   Serial.print("Voltage = ");
@@ -66,9 +67,10 @@ void loop(){
     digitalWrite(secondGear, LOW);
     digitalWrite(thirdGear, LOW);
     digitalWrite(fourthGear, LOW);
-    oled.drawStr(60, 32, "1");
-    oled.setFont(u8g2_font_freedoomr10_mu);
-    oled.drawStr(24, 64, "FIRST GEAR");
+    oled.drawStr(32, 32, "GEAR 1");
+    oled.setFont(u8g2_font_8bitclassic_tf);
+    oled.drawStr(20, 56, myString.c_str());
+    oled.drawStr(80, 56, "VDC");
     oled.sendBuffer();
   }
 
@@ -77,9 +79,10 @@ void loop(){
     digitalWrite(secondGear, HIGH);
     digitalWrite(thirdGear, LOW);
     digitalWrite(fourthGear, LOW);
-    oled.drawStr(20, 32, "SHIFT");
-    oled.setFont(u8g2_font_freedoomr10_mu);
-    oled.drawStr(20, 64, "SHIFTING");
+    oled.drawStr(32, 32, "1-2");
+    oled.setFont(u8g2_font_8bitclassic_tf);
+    oled.drawStr(20, 56, myString.c_str());
+    oled.drawStr(80, 56, "VDC");
     oled.sendBuffer();
   }
 
@@ -88,9 +91,10 @@ void loop(){
     digitalWrite(secondGear, HIGH);
     digitalWrite(thirdGear, LOW);
     digitalWrite(fourthGear, LOW);
-    oled.drawStr(60, 32, "2");
-    oled.setFont(u8g2_font_freedoomr10_mu);
-    oled.drawStr(20, 64, "SECOND GEAR");
+    oled.drawStr(32, 32, "GEAR 2");
+    oled.setFont(u8g2_font_8bitclassic_tf);
+    oled.drawStr(20, 56, myString.c_str());
+    oled.drawStr(80, 56, "VDC");
     oled.sendBuffer();
   }
 
@@ -99,9 +103,10 @@ void loop(){
     digitalWrite(secondGear, HIGH);
     digitalWrite(thirdGear, HIGH);
     digitalWrite(fourthGear, LOW);
-    oled.drawStr(20, 32, "SHIFT");
-    oled.setFont(u8g2_font_freedoomr10_mu);
-    oled.drawStr(24, 64, "SHIFTING");
+    oled.drawStr(32, 32, "2-3");
+    oled.setFont(u8g2_font_8bitclassic_tf);
+    oled.drawStr(20, 56, myString.c_str());
+    oled.drawStr(80, 56, "VDC");
     oled.sendBuffer();
   }
 
@@ -110,9 +115,10 @@ void loop(){
     digitalWrite(secondGear, LOW);
     digitalWrite(thirdGear, HIGH);
     digitalWrite(fourthGear, LOW);
-    oled.drawStr(60, 32, "3");
-    oled.setFont(u8g2_font_freedoomr10_mu);
-    oled.drawStr(24, 64, "THIRD GEAR");
+    oled.drawStr(32, 32, "GEAR 3");
+    oled.setFont(u8g2_font_8bitclassic_tf);
+    oled.drawStr(20, 56, myString.c_str());
+    oled.drawStr(80, 56, "VDC");
     oled.sendBuffer();
   }
 
@@ -121,9 +127,10 @@ void loop(){
     digitalWrite(secondGear, LOW);
     digitalWrite(thirdGear, HIGH);
     digitalWrite(fourthGear, HIGH);
-    oled.drawStr(20, 32, "SHIFT");
-    oled.setFont(u8g2_font_freedoomr10_mu);
-    oled.drawStr(24, 64, "SHIFTING");
+    oled.drawStr(32, 32, "3-4");
+    oled.setFont(u8g2_font_8bitclassic_tf);
+    oled.drawStr(20, 56, myString.c_str());
+    oled.drawStr(80, 56, "VDC");
     oled.sendBuffer();
   }
 
@@ -132,9 +139,10 @@ void loop(){
     digitalWrite(secondGear, LOW);
     digitalWrite(thirdGear, LOW);
     digitalWrite(fourthGear, HIGH);
-    oled.drawStr(60, 32, "4");
-    oled.setFont(u8g2_font_freedoomr10_mu);
-    oled.drawStr(24, 64, "OVERDRIVE");
+    oled.drawStr(32, 32, "GEAR 4");
+    oled.setFont(u8g2_font_8bitclassic_tf);
+    oled.drawStr(20, 56, myString.c_str());
+    oled.drawStr(80, 56, "VDC");
     oled.sendBuffer();
   }
 }
